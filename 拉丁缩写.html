@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拉丁缩写</title>
+    <style>
+        html {
+            /* 修改背景图片文件名 */
+            background: url("ballon-rin.png") no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100%;
+        }
+        body{
+            margin:0;
+            padding:20px;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th,td{
+            border: 1px solid rgba(221,221,221,0.4);
+            text-align: center;
+            padding: 6px;
+        }
+        .div-inline {
+            display: inline;
+            background-color: aquamarine;
+        }
+
+        /* ========== 玻璃态样式：作用于td单元格，解决rowspan遮挡 ========== */
+        /* 奇数行单元格：浅色透明玻璃 */
+        tbody tr.row-odd td{
+            background-color: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        /* 偶数行单元格：稍浓一点玻璃，形成层次 */
+        tbody tr.row-even td{
+            background-color: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        /* 带 rowspan 的分组单元格统一中间色，避免整列过重 */
+        tbody tr.row-odd td[rowspan],
+        tbody tr.row-even td[rowspan]{
+            background-color: rgba(255, 255, 255, 0.30);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.15);
+        }
+
+        /* 表头玻璃效果 */
+        th{
+            background-color: rgba(238, 246, 255, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* 所有斜体拉丁文字使用Times New Roman */
+        i {
+            font-family: "Times New Roman", serif;
+        }
+
+        /* ========== 搜索框玻璃样式 ========== */
+        #searchInput{
+            width: 100%;
+            box-sizing: border-box;
+            padding:12px 16px;
+            font-size:18px;
+            border:1px solid rgba(255,255,255,0.4);
+            border-radius:8px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color:#222;
+        }
+        #searchInput::placeholder{
+            color:#444;
+        }
+
+        /* ========== 无匹配提示玻璃样式 ========== */
+        #noResultTip{
+            display: none;
+            margin:12px 0;
+            padding:14px;
+            text-align:center;
+            font-size:17px;
+            border-radius:8px;
+            border:1px solid rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color:#222;
+        }
+    </style>
+</head>
+<body>
+    <!-- 搜索栏 -->
+    <input type="text" id="searchInput" placeholder="🔍 搜索拉丁单词、释义、词性..." oninput="filterTable()">
+
+    <!-- 无结果提示 -->
+    <div id="noResultTip">没有找到匹配条目，请更换关键词重试</div>
+
+    <!-- ========== 第一整块：拉丁缩写 ========== -->
+    <div id="block1">
+        <h1 style="text-align: center;color:#fff;text-shadow:1px 1px 4px #000;">常用的拉丁文缩写</h1>
+        <table id="table1">
+            <thead>
+                <tr>
+                    <th>拉丁缩写</th>
+                    <th>拉丁原文</th>
+                    <th>常用指代意义</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>etc.</td>
+                    <td>Et cetera</td>
+                    <td>表示还有很多相似例子，不再一一列举。</td>
+                </tr>
+                <tr>
+                    <td>et al.</td>
+                    <td>et alii</td>
+                    <td>主要用于文献引用中，在作者有二人以上时，通常会用et al.代替</td>
+                </tr>
+                <tr>
+                    <td>cf.</td>
+                    <td>confer</td>
+                    <td>提醒读者应该将该陈述与引用来源进行对比。</td>
+                </tr>
+                <tr>
+                    <td>ibid.</td>
+                    <td>ibidem</td>
+                    <td>在连续两处引用来自同一出处时，可以避免重复，节约字数。</td>
+                </tr>
+                <tr>
+                    <td>[<i>sic</i>]</td>
+                    <td>sic erat scriptum</td>
+                    <td>指示引用中容易让读者误以为是转写错误的地方，其实是完全遵照原文来写的。</td>
+                </tr>
+                <tr>
+                    <td>i.e.</td>
+                    <td>id est</td>
+                    <td>进一步阐释上文。</td>
+                </tr>
+                <tr>
+                    <td>e.g.</td>
+                    <td>exempli gratia</td>
+                    <td>列举例子。</td>
+                </tr>
+                <tr>
+                    <td>viz.</td>
+                    <td>videre licet</td>
+                    <td>对前述内容的详细说明。</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="div-inline">以上是比较常用的Latin缩写</div>
+    </div>
+
+    <!-- ========== 第二整块：拉丁语短语 ========== -->
+    <div id="block2">
+        <h1 style="text-align: center;color:#fff;text-shadow:1px 1px 4px #000;">常用的拉丁语短语（按词性分组）</h1>
+        <table id="table2">
+            <thead>
+                <tr>
+                    <th>词性分组</th>
+                    <th>拉丁短语</th>
+                    <th>常用指代意义</th>
+                    <th>用法</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <!-- 连词组 -->
+            <tbody class="group">
+                <tr>
+                    <td rowspan="1">连词</td>
+                    <td><i>ergo</i></td>
+                    <td>因此</td>
+                    <td>连词</td>
+                    <td>所以因为是完整形式，在行文中基本上需要用斜体书写。下同。</td>
+                </tr>
+            </tbody>
+            <!-- 介词组 -->
+            <tbody class="group">
+                <tr>
+                    <td rowspan="1">介词</td>
+                    <td><i>pace</i></td>
+                    <td>和某人意见相左，但是非常尊敬</td>
+                    <td>介词</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <!-- 副词组：一共5行 -->
+            <tbody class="group">
+                <tr>
+                    <td rowspan="5">副词</td>
+                    <td><i>per se</i></td>
+                    <td>本身</td>
+                    <td>副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>ipso facto</i></td>
+                    <td>根据事实本身</td>
+                    <td>副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>Simpliciter</i></td>
+                    <td>只不过，显然地，完全地</td>
+                    <td>副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>vice versa</i></td>
+                    <td>反之亦然</td>
+                    <td>副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>sensu stricto/lato</i></td>
+                    <td>狭义来说/广义来说</td>
+                    <td>副词</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <!-- 形容词/副词两用组：一共5行 -->
+            <tbody class="group">
+                <tr>
+                    <td rowspan="5">形容词/副词两用</td>
+                    <td><i>verbatim</i></td>
+                    <td>逐字的</td>
+                    <td>形容词或副词</td>
+                    <td>拉丁语原生为副词，英语衍生形容词用法</td>
+                </tr>
+                <tr>
+                    <td><i>de facto</i></td>
+                    <td>实际上，事实上</td>
+                    <td>形容词或副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>Prima facie</i></td>
+                    <td>看起来</td>
+                    <td>形容词或副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>ad hoc</i></td>
+                    <td>专门的，为某一目的特别安排的。</td>
+                    <td>形容词或副词</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><i>Ad infinitum</i></td>
+                    <td>无限地</td>
+                    <td>形容词或副词</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="div-inline">以上是比较常用的Latin短语</div>
+    </div>
+
+<script src="./JS/searchFilter.js"></script>
+</body>
+</html>
